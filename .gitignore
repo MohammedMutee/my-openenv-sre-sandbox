@@ -28,8 +28,5 @@ Thumbs.db
 # Docker
 *.log
 
-# UV
-uv.lock
-
 # Metrics results (generated)
 results/
