@@ -1,3 +1,12 @@
+---
+title: SRE Sandbox
+emoji: 🐳
+colorFrom: blue
+colorTo: green
+sdk: docker
+pinned: false
+---
+
 # SRE Sandbox — OpenEnv Competition Track
 
 An **OpenEnv-compliant** sandbox that evaluates AI SRE agents by deliberately breaking Linux infrastructure and measuring how effectively they diagnose and fix the issues via native bash commands.
