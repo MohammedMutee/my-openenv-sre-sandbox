@@ -14,13 +14,13 @@ STDOUT FORMAT
 """
 
 import os
-import textwrap
 from typing import List, Optional
 
 from openai import OpenAI
 
-from env import SREEnvironment, VALID_TASKS
-from models import SREAction, SREObservation
+from custom_agent import get_agent_action
+from env import VALID_TASKS
+from models import SREObservation
 
 # ── Environment Variables ─────────────────────────────────────────────────
 API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
@@ -29,8 +29,6 @@ MODEL_NAME = os.getenv("MODEL_NAME") or "Qwen/Qwen2.5-72B-Instruct"
 
 BENCHMARK = "sre-sandbox"
 MAX_STEPS = int(os.getenv("MAX_STEPS", "10"))
-
-from custom_agent import get_agent_action
 
 # ── Logging Helpers ───────────────────────────────────────────────────────
 

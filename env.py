@@ -8,7 +8,6 @@ compatibility with Hugging Face Spaces.
 
 import logging
 import subprocess
-import time
 import uuid
 from typing import Any, Optional, Tuple
 

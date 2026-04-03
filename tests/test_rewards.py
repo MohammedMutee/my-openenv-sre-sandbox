@@ -2,7 +2,7 @@
 
 import pytest
 
-from rewards import RewardCalculator, RewardResult
+from rewards import RewardCalculator
 from config import settings
 
 

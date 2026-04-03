@@ -2,7 +2,7 @@
 
 import pytest
 
-from env import VALID_TASKS, TICKET_CONTEXTS, MAX_REWARD, SREEnvironment
+from env import VALID_TASKS, TICKET_CONTEXTS, MAX_REWARD
 
 
 class TestValidTasks:

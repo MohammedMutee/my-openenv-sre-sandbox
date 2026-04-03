@@ -4,7 +4,7 @@ SRE Sandbox — Typed Pydantic models for the OpenEnv environment.
 All models inherit from the openenv-core base types to ensure spec compliance.
 """
 
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from pydantic import Field
 
