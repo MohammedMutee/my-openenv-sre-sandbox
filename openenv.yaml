@@ -1,0 +1,43 @@
+name: SRE-Sandbox
+version: 2.0.0
+description: "Autonomous SRE evaluation sandbox that breaks containerised infrastructure and measures AI agent effectiveness at diagnosis and repair."
+type: openenv
+author: "mohammed-mutee"
+license: "MIT"
+tags:
+  - sre
+  - devops
+  - reinforcement-learning
+  - docker
+  - ai-evaluation
+  - infrastructure
+entry_point: inference.py
+components:
+  - name: sandbox
+    type: docker
+    dockerfile: Dockerfile
+tasks:
+  - name: easy
+    description: "Nginx process killed. Agent must restart it."
+    difficulty: easy
+  - name: medium
+    description: "Nginx config syntax error. Agent must diagnose and fix."
+    difficulty: medium
+  - name: hard
+    description: "500MB disk fill + Postgres port corruption. Multi-step fix required."
+    difficulty: hard
+  - name: dns
+    description: "DNS resolution broken via corrupted resolv.conf."
+    difficulty: medium
+  - name: firewall
+    description: "iptables blocking ports 80/443."
+    difficulty: medium
+  - name: permissions
+    description: "File permissions locked on web root and nginx config."
+    difficulty: medium
+  - name: resource
+    description: "/tmp filled + rogue CPU consumers. Resource exhaustion."
+    difficulty: hard
+  - name: cascade
+    description: "Multi-failure: nginx upstream broken + postgres auth reject + log flood."
+    difficulty: expert

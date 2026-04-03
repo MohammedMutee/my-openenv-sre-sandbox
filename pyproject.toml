@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sre-sandbox"
+version = "2.0.0"
+description = "Autonomous SRE evaluation sandbox — OpenEnv compliant."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "mohammed-mutee" }
+]
+dependencies = [
+    "openenv-core>=0.2.0",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "docker>=7.0",
+    "openai>=1.0",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+server = "server.app:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
