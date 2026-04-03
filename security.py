@@ -36,9 +36,9 @@ _BLOCKED_PATTERNS: list[tuple[re.Pattern, str]] = [
 # ── Safe Overrides ────────────────────────────────────────────────────────
 # Patterns that look dangerous but are actually safe in context
 _SAFE_OVERRIDES: list[re.Pattern] = [
-    re.compile(r"rm\s+-f\s+/var/log/"),          # Cleaning log files is expected
-    re.compile(r"rm\s+-f\s+/tmp/"),               # Cleaning tmp is fine
-    re.compile(r"rm\s+/var/log/"),                 # Single file log removal
+    re.compile(r"rm\s+-f\s+/var/log/"),  # Cleaning log files is expected
+    re.compile(r"rm\s+-f\s+/tmp/"),  # Cleaning tmp is fine
+    re.compile(r"rm\s+/var/log/"),  # Single file log removal
 ]
 
 
@@ -81,9 +81,7 @@ class CommandSanitizer:
         # Check against blocklist
         for pattern, description in self.blocked_patterns:
             if pattern.search(command):
-                logger.warning(
-                    "BLOCKED command — %s: %s", description, command
-                )
+                logger.warning("BLOCKED command — %s: %s", description, command)
                 return False, f"Command blocked: {description}"
 
         return True, "ok"

@@ -32,6 +32,7 @@ MAX_STEPS = int(os.getenv("MAX_STEPS", "10"))
 
 # ── Logging Helpers ───────────────────────────────────────────────────────
 
+
 def log_start(task: str, env: str, model: str) -> None:
     print(f"[START] task={task} env={env} model={model}", flush=True)
 
@@ -55,6 +56,7 @@ def log_end(success: bool, steps: int, score: float, rewards: List[float]) -> No
 
 # ── Main ──────────────────────────────────────────────────────────────────
 
+
 def main() -> None:
     client = OpenAI(base_url=API_BASE_URL, api_key=API_KEY or "dummy_key")
 
@@ -67,7 +69,7 @@ def main() -> None:
 
     # Connect to the Hugging Face / Docker environment port
     env_url = os.getenv("ENV_URL", "http://localhost:7860")
-    
+
     with GenericEnvClient(base_url=env_url).sync() as env:
         try:
             for task in tasks:
@@ -91,10 +93,10 @@ def main() -> None:
 
                         action = get_agent_action(client, obs, history, step, MODEL_NAME)
                         res = env.step(action)
-                        
+
                         obs_dict = res.observation
                         obs = SREObservation(**obs_dict)
-                        
+
                         reward = res.reward if res.reward is not None else 0.0
                         done = res.done if res.done is not None else False
                         error = obs.last_action_error

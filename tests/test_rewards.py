@@ -14,23 +14,26 @@ def calc():
 class TestDiagnosticRewards:
     """Commands that should earn diagnostic rewards."""
 
-    @pytest.mark.parametrize("cmd", [
-        "cat /var/log/nginx/error.log",
-        "tail -n 50 /var/log/nginx/error.log",
-        "less /var/log/nginx/error.log",
-        "head -20 /var/log/nginx/error.log",
-        "grep 'error' /var/log/nginx/error.log",
-        "journalctl -u nginx",
-        "nginx -t",
-        "systemctl status nginx",
-        "service nginx status",
-        "ss -tulnp",
-        "netstat -tlnp",
-        "df -h",
-        "du -sh /var/log",
-        "free -m",
-        "ps aux",
-    ])
+    @pytest.mark.parametrize(
+        "cmd",
+        [
+            "cat /var/log/nginx/error.log",
+            "tail -n 50 /var/log/nginx/error.log",
+            "less /var/log/nginx/error.log",
+            "head -20 /var/log/nginx/error.log",
+            "grep 'error' /var/log/nginx/error.log",
+            "journalctl -u nginx",
+            "nginx -t",
+            "systemctl status nginx",
+            "service nginx status",
+            "ss -tulnp",
+            "netstat -tlnp",
+            "df -h",
+            "du -sh /var/log",
+            "free -m",
+            "ps aux",
+        ],
+    )
     def test_diagnostic_commands_rewarded(self, calc, cmd):
         result = calc.calculate(cmd, phase="research")
         assert result.total > 0, f"Expected reward for diagnostic: {cmd}"
@@ -50,16 +53,19 @@ class TestDiagnosticRewards:
 class TestRemediationRewards:
     """Commands that should earn remediation rewards."""
 
-    @pytest.mark.parametrize("cmd", [
-        "service nginx restart",
-        "systemctl restart postgresql",
-        "nginx -s reload",
-        "sed -i 's/foo/bar/' /etc/nginx/nginx.conf",
-        "chmod 644 /etc/nginx/nginx.conf",
-        "chown www-data:www-data /var/www/html",
-        "iptables -D INPUT 1",
-        "iptables -F",
-    ])
+    @pytest.mark.parametrize(
+        "cmd",
+        [
+            "service nginx restart",
+            "systemctl restart postgresql",
+            "nginx -s reload",
+            "sed -i 's/foo/bar/' /etc/nginx/nginx.conf",
+            "chmod 644 /etc/nginx/nginx.conf",
+            "chown www-data:www-data /var/www/html",
+            "iptables -D INPUT 1",
+            "iptables -F",
+        ],
+    )
     def test_remediation_commands_rewarded(self, calc, cmd):
         result = calc.calculate(cmd, phase="execute")
         assert result.total > 0, f"Expected reward for remediation: {cmd}"
@@ -80,13 +86,16 @@ class TestDestructivePenalty:
 class TestNeutralCommands:
     """Commands with no specific reward or penalty."""
 
-    @pytest.mark.parametrize("cmd", [
-        "echo hello",
-        "pwd",
-        "ls -la",
-        "whoami",
-        "date",
-    ])
+    @pytest.mark.parametrize(
+        "cmd",
+        [
+            "echo hello",
+            "pwd",
+            "ls -la",
+            "whoami",
+            "date",
+        ],
+    )
     def test_neutral_commands_zero_reward(self, calc, cmd):
         result = calc.calculate(cmd, phase="research")
         assert result.total == 0.0

@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class RewardSignal:
     """A single reward event with its value and description."""
+
     value: float
     reason: str
 
@@ -25,6 +26,7 @@ class RewardSignal:
 @dataclass
 class RewardResult:
     """Aggregated reward outcome for a single step."""
+
     total: float = 0.0
     signals: list[RewardSignal] = field(default_factory=list)
     done: bool = False

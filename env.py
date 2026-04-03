@@ -132,7 +132,7 @@ class SREEnvironment(Environment[SREAction, SREObservation, SREState]):
     ) -> SREObservation:
         """Execute agent action and return observation with reward."""
         self._state.step_count += 1
-        
+
         # ── Security Gate ─────────────────────────────────────────────────
         allowed, reason = self.sanitizer.check(action.command)
         if not allowed:
@@ -244,9 +244,9 @@ class SREEnvironment(Environment[SREAction, SREObservation, SREState]):
             return self._check_scenario_specific()
 
         # Nginx check
-        c_code, c_out, _ = run_local("curl -s -o /dev/null -w \"%{http_code}\" http://localhost")
-        nginx_ok = (c_code == 0 and c_out.strip() == "200")
-        
+        c_code, c_out, _ = run_local('curl -s -o /dev/null -w "%{http_code}" http://localhost')
+        nginx_ok = c_code == 0 and c_out.strip() == "200"
+
         if not nginx_ok:
             return False, False, 0.0
 

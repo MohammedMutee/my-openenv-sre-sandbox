@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class StepRecord:
     """Record of a single step within a scenario run."""
+
     step: int
     phase: str
     command: str
@@ -33,6 +34,7 @@ class StepRecord:
 @dataclass
 class ScenarioResult:
     """Result of a single scenario evaluation."""
+
     scenario: str
     success: bool
     total_reward: float
@@ -45,6 +47,7 @@ class ScenarioResult:
 @dataclass
 class EvaluationRun:
     """Complete evaluation run across all scenarios."""
+
     run_id: str
     timestamp: str
     agent_type: str
@@ -126,9 +129,7 @@ class MetricsCollector:
             return
 
         self._current_scenario.success = success
-        self._current_scenario.duration_seconds = round(
-            time.time() - self._scenario_start, 2
-        )
+        self._current_scenario.duration_seconds = round(time.time() - self._scenario_start, 2)
         self._current_scenario.error = error
         self.run.scenarios.append(self._current_scenario)
         self._current_scenario = None

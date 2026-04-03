@@ -43,7 +43,9 @@ class SREObservation(Observation):
     stdout: str = Field(default="", description="Standard output from the command.")
     stderr: str = Field(default="", description="Standard error from the command.")
     exit_code: int = Field(default=0, description="Exit code of the command.")
-    current_directory: str = Field(default="/", description="Working directory after command execution.")
+    current_directory: str = Field(
+        default="/", description="Working directory after command execution."
+    )
     ticket_context: Optional[str] = Field(
         default=None,
         description="The SRE incident ticket (provided on reset, None on step).",

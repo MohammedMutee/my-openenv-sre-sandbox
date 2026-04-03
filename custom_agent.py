@@ -31,6 +31,7 @@ SYSTEM_PROMPT = textwrap.dedent("""
 
 # ── Custom Agent Logic ────────────────────────────────────────────────────
 
+
 def get_agent_action(
     client: OpenAI,
     obs: SREObservation,
@@ -44,9 +45,9 @@ def get_agent_action(
     """
     # 1. Build context
     user_content = f"""Step {step}
-Ticket: {obs.ticket_context or 'N/A'}
-Last command output (stdout): {obs.stdout[:500] if obs.stdout else 'N/A'}
-Last command stderr: {obs.stderr[:300] if obs.stderr else 'N/A'}
+Ticket: {obs.ticket_context or "N/A"}
+Last command output (stdout): {obs.stdout[:500] if obs.stdout else "N/A"}
+Last command stderr: {obs.stderr[:300] if obs.stderr else "N/A"}
 Exit code: {obs.exit_code}
 Working directory: {obs.current_directory}
 

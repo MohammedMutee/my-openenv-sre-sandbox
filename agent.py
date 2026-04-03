@@ -136,9 +136,7 @@ class GeminiAgent:
 
     def __init__(self) -> None:
         if not settings.gemini_api_key:
-            raise ValueError(
-                "GEMINI_API_KEY not set. Add it to your .env file."
-            )
+            raise ValueError("GEMINI_API_KEY not set. Add it to your .env file.")
 
         genai.configure(api_key=settings.gemini_api_key)
         self.model = genai.GenerativeModel(
@@ -173,9 +171,7 @@ class GeminiAgent:
             prompt_parts.append(f"## stderr\n```\n{obs.stderr.strip()}\n```")
 
         prompt_parts.append(f"## Exit Code\n{obs.exit_code}")
-        prompt_parts.append(
-            "\nWhat is your next action? Respond with ONLY a JSON object."
-        )
+        prompt_parts.append("\nWhat is your next action? Respond with ONLY a JSON object.")
 
         prompt = "\n\n".join(prompt_parts)
 
