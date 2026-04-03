@@ -23,6 +23,7 @@ app = FastAPI(
     version="2.0.0",
 )
 
+
 # Wrap the environment in the OpenEnv HTTP server
 @app.get("/")
 def read_root():
@@ -32,6 +33,7 @@ def read_root():
         "version": "2.0.0",
         "message": "Environment API actively listening on Port 7860. Connect via /health or POST /reset.",
     }
+
 
 server = HTTPEnvServer(
     env=SREEnvironment,
