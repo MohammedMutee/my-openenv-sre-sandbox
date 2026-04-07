@@ -23,8 +23,8 @@ This environment perfectly follows the **OpenEnv** specifications, running direc
 
 **1. Clone the environment and configure Python**
 ```bash
-git clone https://github.com/mohammed-mutee/my-openenv.git
-cd my-openenv
+git clone https://github.com/MohammedMutee/my-openenv-sre-sandbox.git
+cd my-openenv-sre-sandbox
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 ```
