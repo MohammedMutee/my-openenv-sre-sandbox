@@ -47,4 +47,4 @@ HEALTHCHECK --interval=10s --timeout=3s --retries=3 \
     CMD curl -sf http://localhost:7860/health || exit 1
 
 # Start the OpenEnv FastAPI Server (it will handle the tasks)
-CMD service postgresql start && python3 -m server.app
+CMD service postgresql start || true; service nginx start || true; python3 -m server.app
