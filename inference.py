@@ -79,7 +79,6 @@ def main() -> None:
                 rewards: List[float] = []
                 steps_taken = 0
                 success = False
-                score = 0.0
 
                 try:
                     # Generic client returns a StepResult containing raw dicts
