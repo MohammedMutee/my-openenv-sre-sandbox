@@ -228,10 +228,8 @@ class SREEnvironment(Environment[SREAction, SREObservation, SREState]):
 
     def get_normalized_score(self) -> float:
         """Return the final score normalised to 0.0–1.0."""
-        task = self._state.current_task or "easy"
-        max_r = MAX_REWARD.get(task, 1.0)
-        raw = self._state.total_reward
-        return max(0.0, min(1.0, raw / max_r))
+        # total_reward is already normalized and clamped in step()
+        return max(0.001, min(0.999, self._state.total_reward))
 
     # ── Private Native Handlers ───────────────────────────────────────────
 
