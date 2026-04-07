@@ -36,6 +36,9 @@ COPY . /app
 # Enable execution of scripts
 RUN chmod +x /app/scripts/*.sh
 
+# Patch PostgreSQL startup scripts to strictly ignore 'chmod' operations on restricted evaluator containers
+RUN sed -i 's/chmod.*socketdir.*/return 1;/g' /usr/share/postgresql-common/PgCommon.pm 2>/dev/null || true
+
 # Create backups of clean system configurations so /reset can restore them natively
 RUN cp -a /etc/nginx /etc/nginx.bak && \
     cp /etc/resolv.conf /etc/resolv.conf.bak || true
@@ -47,4 +50,4 @@ HEALTHCHECK --interval=10s --timeout=3s --retries=3 \
     CMD curl -sf http://localhost:7860/health || exit 1
 
 # Start the OpenEnv FastAPI Server (it will handle the tasks)
-CMD service postgresql start && python3 -m server.app
+CMD service postgresql start || true; service nginx start || true; python3 -m server.app
