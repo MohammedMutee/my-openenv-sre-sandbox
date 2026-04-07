@@ -98,11 +98,12 @@ class SREEnvironment(Environment[SREAction, SREObservation, SREState]):
         self._cleanup_system_state()
 
         ep_id = episode_id or str(uuid.uuid4())
+        self._raw_total = 0.0
         self._state = SREState(
             episode_id=ep_id,
             step_count=0,
             current_task=task,
-            total_reward=0.0,
+            total_reward=0.001,
             done=False,
             success=False,
         )
@@ -165,7 +166,7 @@ class SREEnvironment(Environment[SREAction, SREObservation, SREState]):
 
         # ── Reward ────────────────────────────────────────────────────────
         reward_result = self.reward_calc.calculate(action.command, action.phase)
-        step_reward = reward_result.total
+        step_raw = reward_result.total
         done = reward_result.done
         success = False
 
@@ -174,9 +175,22 @@ class SREEnvironment(Environment[SREAction, SREObservation, SREState]):
             is_done, is_success, health_reward = self._check_health()
             done = is_done
             success = is_success
-            step_reward += health_reward
+            step_raw += health_reward
 
-        self._state.total_reward += step_reward
+        # Accumulate raw and normalize strictly within bounds dynamically
+        if not hasattr(self, "_raw_total"):
+            self._raw_total = 0.0
+        self._raw_total += step_raw
+
+        task = self._state.current_task or "easy"
+        max_r = MAX_REWARD.get(task, 1.0)
+
+        norm_r = self._raw_total / max_r
+        new_total = max(0.001, min(0.999, norm_r))
+
+        step_reward = new_total - self._state.total_reward
+
+        self._state.total_reward = new_total
         self._state.done = done
         self._state.success = success
 
